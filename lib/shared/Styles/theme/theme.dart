@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shop_project/shared/Styles/colors.dart';
 
 ThemeData darkthemes = ThemeData(
-    primarySwatch: Colors.deepOrange,
+    primarySwatch: defultColor,
     scaffoldBackgroundColor: HexColor('333739'),
     appBarTheme: AppBarTheme(
       titleSpacing: 15,
@@ -32,13 +33,14 @@ ThemeData darkthemes = ThemeData(
       elevation: 20,
     ),
     textTheme: TextTheme(
-      bodyText1: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: Colors.white),
+      bodyText1: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: Colors.white,),
       bodyText2:  TextStyle(fontSize: 16, color: Colors.white),
-    )
+    ),
+    fontFamily: 'janna',
 
 );
 ThemeData lightthemes = ThemeData(
-    primarySwatch: Colors.deepOrange,
+    primarySwatch: defultColor,
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(
       titleSpacing: 15,
@@ -70,7 +72,8 @@ ThemeData lightthemes = ThemeData(
       bodyText1: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: Colors.black),
       bodyText2:  TextStyle(fontSize: 16, color: Colors.black),
 
-    )
+    ),
+    fontFamily: 'janna',
 
 
 );
