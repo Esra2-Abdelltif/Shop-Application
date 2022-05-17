@@ -26,13 +26,13 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
 
   List<BoardingModel> boarding =[
     BoardingModel(image:'assets/images/onboarding_1.png' ,
-        title: 'Online Shoping',
-        body: 'You can shopping anytime, anywhere that you want'),
+        title: 'Online Shopping',
+        body: 'You can shopping anytime, anywhere that you want.'),
     BoardingModel(image:'assets/images/onboarding_2.png' , title: 'Mobile Payment',
         body: 'Download our shopping application and buy using your smarphone or laptop.'),
     BoardingModel(image:'assets/images/onboarding_3.png' ,
         title: 'Delivry Service',
-        body: 'Modern delivering technologies.The products you order will be delivered to your address')
+        body: 'Modern delivering technologies.The products you order will be delivered to your address.')
   ];
   bool isLast=false;
   bool isFirst=false;
@@ -118,14 +118,14 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
                         onPressed: () {
                           NavigateAndFinsh(router: LoginScreen(),context: context);
                         },
-                        child: Text("START"),
+                        child: Text("SHOPPING NOW"),
                         style: ElevatedButton.styleFrom(
                           primary: defultColor,
                           shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                           ),
                           padding: (width <= 550) ? EdgeInsets.symmetric(
-                              horizontal: 100, vertical: 20) : EdgeInsets.symmetric(horizontal: width * 0.2, vertical: 25),
+                              horizontal: 80, vertical: 20) : EdgeInsets.symmetric(horizontal: width * 0.2, vertical: 25),
                           textStyle: TextStyle(fontSize: (width <= 550) ? 13 : 17),
                         ),
                       ),
