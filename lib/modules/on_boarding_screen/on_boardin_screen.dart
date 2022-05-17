@@ -1,8 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:shop_project/modules/login_screen/login_screen.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
+import 'package:shop_project/shared/Styles/size_config.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class BoardingModel{
   final String image;
@@ -18,45 +20,66 @@ class OnBoardinScreen extends StatefulWidget {
 
 class _OnBoardinScreenState extends State<OnBoardinScreen> {
   var boardController =PageController();
+  //لو عاوزه اخلي لي كل صفحه لون مختلف
+ // int _currentPage = 0;
+  // List colors = [Color(0xffDAD3C8), Color(0xffFFE5DE), Color(0xffDCF6E6)];
 
   List<BoardingModel> boarding =[
-    BoardingModel(image:'assets/images/onboarding_1.png' , title: 'Screen Title1', body: 'Screen body1'),
-    BoardingModel(image:'assets/images/onboarding_1.png' , title: 'Screen Title2', body: 'Screen body2'),
-    BoardingModel(image:'assets/images/onboarding_1.png' , title: 'Screen Title3', body: 'Screen body1')
+    BoardingModel(image:'assets/images/onboarding_1.png' ,
+        title: 'Online Shoping',
+        body: 'You can shopping anytime, anywhere that you want'),
+    BoardingModel(image:'assets/images/onboarding_2.png' , title: 'Mobile Payment',
+        body: 'Download our shopping application and buy using your smarphone or laptop.'),
+    BoardingModel(image:'assets/images/onboarding_3.png' ,
+        title: 'Delivry Service',
+        body: 'Modern delivering technologies.The products you order will be delivered to your address')
   ];
   bool isLast=false;
-
+  bool isFirst=false;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    double width = SizeConfig.screenW;
+    double height = SizeConfig.screenH;
+    double blockH = SizeConfig.blockH;
+    double blockV = SizeConfig.blockV;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        actions: [
-          TextButton(onPressed:(){
-            NavigateAndFinsh(context: context,router: LoginScreen());
-          } , child:Text('Skip',style: TextStyle(fontSize: 20)))
-        ],
-      ),
+      //backgroundColor: colors[_currentPage],
+      appBar: AppBar(),
       body:Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
           children: [
           Expanded(
+            flex: 3,
             child: PageView.builder(
               controller: boardController,
              onPageChanged: (int index){
+              // _currentPage =index;
                 if(index == boarding.length-1){
                   setState(() {
                     isLast=true;
+                    isFirst=false;
                   });
                   print('last');
+                  print('not first ');
+
+                }
+                else if( index == 0){
+                  setState(() {
+                    isLast=false;
+                    isFirst=true;
+                  });
+                  print('not last');
+                  print('first');
+
+
                 }
                 else {
                   setState(() {
                     isLast=false;
+                    isFirst=false;
                   });
-                  print('not last');
-
                 }
              },
              // physics: BouncingScrollPhysics(), //بتشيل اللون الي بيظهر في جنب لما بوصل للنهايه
@@ -65,45 +88,98 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
             ),
           ),
             const SizedBox(height: 40,),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SmoothPageIndicator(
-                      controller: boardController,
-                      count: boarding.length,
-                      effect:  const JumpingDotEffect(
-                        activeDotColor: defultColor,
-                        dotHeight: 20,
-                        dotWidth: 20,
-                        jumpScale: .7,
-                        //verticalOffset: 150,
+            Expanded(
+              flex: 1,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children:[
+                        SmoothPageIndicator(
+                        controller: boardController,
+                        count: boarding.length,
+                        effect:  const ExpandingDotsEffect(
+                          activeDotColor: defultColor,
+                          dotHeight: 16,
+                          dotWidth: 16,
+                          //jumpScale: .7,
+                          //verticalOffset: 150,
 
+                        ),
                       ),
-                  ),
-                  const Spacer(),
-                  Conditional.single(
-                    context: context,
-                      conditionBuilder:(BuildContext context)=> isLast,
-                      widgetBuilder:  (BuildContext context){
-                    return TextButton(onPressed:(){
-                      NavigateAndFinsh(context: context,router: LoginScreen());
-                    } , child:Text('Done',style: TextStyle(fontSize: 18),));
-                      },
-                      fallbackBuilder:  (BuildContext context){
-                    return FloatingActionButton(onPressed: (){
-                      if(isLast){
-                        NavigateAndFinsh(router: LoginScreen(),context: context);
-                      }
-                      else{
-                        boardController.nextPage(duration: const Duration(milliseconds: 750), curve: Curves.fastLinearToSlowEaseIn);
-                      }
-                    },
-                      child: const Icon(Icons.arrow_forward),);
-                      },
-                  )
+                      ]
+                    ),
+                    isLast
+                        ? Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          NavigateAndFinsh(router: LoginScreen(),context: context);
+                        },
+                        child: Text("START"),
+                        style: ElevatedButton.styleFrom(
+                          primary: defultColor,
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          padding: (width <= 550) ? EdgeInsets.symmetric(
+                              horizontal: 100, vertical: 20) : EdgeInsets.symmetric(horizontal: width * 0.2, vertical: 25),
+                          textStyle: TextStyle(fontSize: (width <= 550) ? 13 : 17),
+                        ),
+                      ),
+                    )
+                        : Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              boardController.jumpToPage(2);
+                            },
+                            child: Text(
+                              "SKIP",
+
+                            ),
+                            style: TextButton.styleFrom(
+                              elevation: 0,
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: (width <= 550) ? 13 : 17,
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              boardController.nextPage(
+                                duration: Duration(milliseconds: 200),
+                                curve: Curves.easeIn,
+                              );
+                            },
+                            child: Text("NEXT"),
+                            style: ElevatedButton.styleFrom(
+                              primary:defultColor,
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              elevation: 0,
+                              padding: (width <= 550)
+                                  ? EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 20)
+                                  : EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 25),
+                              textStyle: TextStyle(
+                                  fontSize: (width <= 550) ? 13 : 17),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
 
 
-                ]
+                  ]
+              ),
             ),
         ],),
       )
@@ -111,13 +187,14 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
   }
 
   Widget BuildBoardingItem(BoardingModel model)=> Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Expanded(child: Image(image: AssetImage('${model.image}'))),
+      Expanded(child: Image(image: AssetImage('${model.image}'),height: SizeConfig.blockV * 35,)),
+      const SizedBox( height: 30,),
+      Center(child: Text('${model.title}',textAlign: TextAlign.center,style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w600,),)),
       const SizedBox(height: 10,),
-      Center(child: Text('${model.title}',style: const TextStyle(fontSize: 24))),
-      const SizedBox(height: 10,),
-      Center(child: Text('${model.body}',style: const TextStyle(fontSize: 14))),
+      Center(child: Text('${model.body}',textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.w300,color: Color(0xFF8D8E98),
+          fontSize: 17 ))),
       const SizedBox(height: 10,),
     ],
   );
