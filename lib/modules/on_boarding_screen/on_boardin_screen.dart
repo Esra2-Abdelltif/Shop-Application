@@ -45,6 +45,7 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
     double blockV = SizeConfig.blockV;
     return Scaffold(
       //backgroundColor: colors[_currentPage],
+      backgroundColor: Colors.white,
       appBar: AppBar(),
       body:Padding(
         padding: const EdgeInsets.all(30.0),
@@ -146,7 +147,7 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
                               elevation: 0,
                               textStyle: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: (width <= 550) ? 13 : 17,
+                                fontSize: (width <= 550) ? 14 : 17,
                               ),
                             ),
                           ),
@@ -191,7 +192,7 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
     children: [
       Expanded(child: Image(image: AssetImage('${model.image}'),height: SizeConfig.blockV * 35,)),
       const SizedBox( height: 30,),
-      Center(child: Text('${model.title}',textAlign: TextAlign.center,style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w600,),)),
+      Center(child: Text('${model.title}',textAlign: TextAlign.center,style: const TextStyle(fontSize: 30, color: Colors.black54, fontWeight: FontWeight.w600,),)),
       const SizedBox(height: 10,),
       Center(child: Text('${model.body}',textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.w300,color: Color(0xFF8D8E98),
           fontSize: 17 ))),
