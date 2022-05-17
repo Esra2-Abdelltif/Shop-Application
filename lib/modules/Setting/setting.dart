@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_project/shared/Styles/theme/Bloc/cubit.dart';
+import 'package:shop_project/shared/Styles/theme/Bloc/states.dart';
 
 
 class Setting extends StatelessWidget {
@@ -54,25 +56,25 @@ class Setting extends StatelessWidget {
   }
 
 }
-// class SwitchTheme extends StatelessWidget {
-//   const SwitchTheme({
-//     Key key,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocConsumer<AppCubit, AppStates>(
-//       listener: (BuildContext context, AppStates state) {},
-//       builder: (BuildContext context,  AppStates state) {
-//         return CupertinoSwitch(
-//           value: AppCubit.get(context).IsDark,
-//           activeColor: Theme.of(context).primaryColor,
-//           onChanged: (value) {
-//             AppCubit.get(context).ChangeAppMode();
-//           },
-//         );
-//       },
-//     );
-//   }
-// }
+class SwitchTheme extends StatelessWidget {
+  const SwitchTheme({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (BuildContext context, AppStates state) {},
+      builder: (BuildContext context,  AppStates state) {
+        return CupertinoSwitch(
+          value: AppCubit.get(context).IsDark,
+          activeColor: Theme.of(context).primaryColor,
+          onChanged: (value) {
+            AppCubit.get(context).ChangeAppMode();
+          },
+        );
+      },
+    );
+  }
+}
 

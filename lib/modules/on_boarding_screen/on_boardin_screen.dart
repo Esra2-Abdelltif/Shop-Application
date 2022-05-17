@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:shop_project/modules/login_screen/login_screen.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
@@ -33,7 +34,7 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
         actions: [
           TextButton(onPressed:(){
             NavigateAndFinsh(context: context,router: LoginScreen());
-          } , child:Text('Skip',))
+          } , child:Text('Skip',style: TextStyle(fontSize: 20)))
         ],
       ),
       body:Padding(
@@ -65,31 +66,41 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
           ),
             const SizedBox(height: 40,),
             Row(
-                //mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(
-                    child: SmoothPageIndicator(
-                        controller: boardController,
-                        count: boarding.length,
-                        effect:  const JumpingDotEffect(
-                          activeDotColor: defultColor,
-                          dotHeight: 16,
-                          dotWidth: 16,
-                          jumpScale: .7,
-                          verticalOffset: 15,
+                  SmoothPageIndicator(
+                      controller: boardController,
+                      count: boarding.length,
+                      effect:  const JumpingDotEffect(
+                        activeDotColor: defultColor,
+                        dotHeight: 20,
+                        dotWidth: 20,
+                        jumpScale: .7,
+                        //verticalOffset: 150,
 
-                        ),
-                    ),
+                      ),
                   ),
                   const Spacer(),
-                  FloatingActionButton(onPressed: (){
-                    if(isLast){
-                      NavigateAndFinsh(router: LoginScreen(),context: context);
-                    }
-                    else{
-                      boardController.nextPage(duration: const Duration(milliseconds: 750), curve: Curves.fastLinearToSlowEaseIn);
-                    }
-                  },child: const Icon(Icons.arrow_forward_ios),)
+                  Conditional.single(
+                    context: context,
+                      conditionBuilder:(BuildContext context)=> isLast,
+                      widgetBuilder:  (BuildContext context){
+                    return TextButton(onPressed:(){
+                      NavigateAndFinsh(context: context,router: LoginScreen());
+                    } , child:Text('Done',style: TextStyle(fontSize: 18),));
+                      },
+                      fallbackBuilder:  (BuildContext context){
+                    return FloatingActionButton(onPressed: (){
+                      if(isLast){
+                        NavigateAndFinsh(router: LoginScreen(),context: context);
+                      }
+                      else{
+                        boardController.nextPage(duration: const Duration(milliseconds: 750), curve: Curves.fastLinearToSlowEaseIn);
+                      }
+                    },
+                      child: const Icon(Icons.arrow_forward),);
+                      },
+                  )
 
 
                 ]
