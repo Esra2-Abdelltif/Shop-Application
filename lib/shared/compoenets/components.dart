@@ -41,6 +41,7 @@ Widget defulutTextFormFild ({
   VoidCallback onTap,
 
 })=>TextFormField(
+  //style: Theme.of(context).textTheme.bodyText2,
   validator:validator,
   controller:controller,
   keyboardType: type,

@@ -22,9 +22,10 @@ class DioHelper {
   })async
 
   {
-   // dio.options =BaseOptions(headers: {'lang':lang ,'Authorization':token??null,});
+   dio.options.headers={'lang':lang ,'Authorization':token,};
 
-    return await dio.get(Url,queryParameters: Quary);
+
+   return await dio.get(Url,queryParameters: Quary);
   }
 
   static Future<Response> postData({
@@ -35,7 +36,7 @@ class DioHelper {
     String token,
   })async
   {
-   // dio.options =BaseOptions(headers: {'lang':lang ,'Authorization':token??null,});
+   dio.options.headers={'lang':lang ,'Authorization':token,};
     return await dio.post(Url,queryParameters: Quary,data: data);
   }
 }

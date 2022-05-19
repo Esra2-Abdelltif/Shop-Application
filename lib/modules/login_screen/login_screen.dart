@@ -95,7 +95,6 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(
                       height: 20,),
-
                     ConditionalBuilder(
                       condition: state is! LoginLoadingState,
                       builder: (context) => defultMaterialButton(height: 50, width: 250,text: 'LOGIN',
@@ -105,7 +104,6 @@ class LoginScreen extends StatelessWidget {
                             LoginCubit.get(context).UserLogin(email: emailController.text, password:passController.text);
 
                             //NavigateTo(router:WelcomeScreen(),context: context);
-
                           }
                         },
                       ),
