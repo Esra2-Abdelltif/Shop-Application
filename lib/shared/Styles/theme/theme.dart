@@ -6,6 +6,7 @@ import 'package:shop_project/shared/Styles/colors.dart';
 ThemeData darkthemes = ThemeData(
     primarySwatch: defultColor,
     scaffoldBackgroundColor: HexColor('333739'),
+
     appBarTheme: AppBarTheme(
       titleSpacing: 15,
       iconTheme: IconThemeData(color: Colors.white),
@@ -35,6 +36,8 @@ ThemeData darkthemes = ThemeData(
     textTheme: TextTheme(
       bodyText1: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: Colors.white,),
       bodyText2:  TextStyle(fontSize: 16, color: Colors.white),
+      headline1:TextStyle(fontSize: 30, color: Colors.black54, fontWeight: FontWeight.w600,),
+headline2: TextStyle(fontWeight: FontWeight.w300,color: Color(0xFF8D8E98)),
     ),
     fontFamily: 'janna',
 
@@ -71,6 +74,8 @@ ThemeData lightthemes = ThemeData(
     textTheme: TextTheme(
       bodyText1: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: Colors.black),
       bodyText2:  TextStyle(fontSize: 16, color: Colors.black),
+      headline1:TextStyle(fontSize: 30, color: Colors.black54, fontWeight: FontWeight.w600,),
+      headline2: TextStyle(fontWeight: FontWeight.w300,color: Color(0xFF8D8E98)),
 
     ),
     fontFamily: 'janna',

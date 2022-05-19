@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:shop_project/modules/login_screen/login_screen.dart';
+import 'package:shop_project/modules/welcome_screen/welcome_screen.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
 import 'package:shop_project/shared/Styles/size_config.dart';
@@ -116,9 +117,9 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
                       padding: const EdgeInsets.all(30),
                       child: ElevatedButton(
                         onPressed: () {
-                          NavigateAndFinsh(router: LoginScreen(),context: context);
+                          NavigateAndFinsh(router:WelcomeScreen(),context: context);
                         },
-                        child: Text("SHOPPING NOW"),
+                        child: Text("Start"),
                         style: ElevatedButton.styleFrom(
                           primary: defultColor,
                           shape: new RoundedRectangleBorder(

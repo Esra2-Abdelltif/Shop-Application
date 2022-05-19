@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_project/shared/Network/local/cacheHelper.dart';
-import 'package:shop_project/shared/Styles/theme/Bloc/states.dart';
+import 'package:shop_project/shared/Styles/theme/cubit/states.dart';
 
 class AppCubit extends Cubit<AppStates>
 {

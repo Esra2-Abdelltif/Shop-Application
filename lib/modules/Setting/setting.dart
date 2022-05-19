@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_project/shared/Styles/theme/Bloc/cubit.dart';
-import 'package:shop_project/shared/Styles/theme/Bloc/states.dart';
+import 'package:shop_project/shared/Styles/theme/cubit/cubit.dart';
+import 'package:shop_project/shared/Styles/theme/cubit/states.dart';
 
 
 class Setting extends StatelessWidget {
