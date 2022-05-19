@@ -32,13 +32,15 @@ Widget defulutTextFormFild ({
    TextInputType type,
    String labeltext,
   String hintText,
-  Widget suffix,
-   Widget prefix,
+ IconData suffix,
+  Widget prefix,
   bool obscureText,
   bool secirty,
-  Function suffixFun,
+  VoidCallback suffixFun,
   ValueChanged<String> onChanged,
   VoidCallback onTap,
+  Function onSubmited,
+
 
 })=>TextFormField(
   //style: Theme.of(context).textTheme.bodyText2,
@@ -47,6 +49,8 @@ Widget defulutTextFormFild ({
   keyboardType: type,
   obscureText: obscureText,
 onChanged: onChanged,
+onFieldSubmitted: onSubmited,
+
   onTap: onTap,
   decoration: InputDecoration(
     focusedBorder: OutlineInputBorder(
@@ -58,7 +62,9 @@ onChanged: onChanged,
     hintText: hintText,
     labelStyle: TextStyle(color: defultColor),
     prefixIcon: prefix,
-    suffixIcon: suffix,
+    suffixIcon: IconButton(icon: Icon(suffix,color: defultColor),
+    onPressed:suffixFun ),
+
 
 
   ),

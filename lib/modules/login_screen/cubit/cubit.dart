@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_project/modules/login_screen/cubit/state.dart';
 import 'package:shop_project/shared/Network/remote/dio_helper.dart';
@@ -25,6 +26,16 @@ class LoginCubit extends Cubit<LogInStates>
       print(error.toString());
       emit(LoginErrorState(error.toString()));
     });
+  }
+
+  IconData suffix= Icons.visibility;
+  bool secirty = true;
+  void ChangePasswordVisibility(){
+    secirty =!secirty;
+   suffix= secirty ? Icons.visibility : Icons.visibility_off;
+   emit(ChangePasswordVisibilityState());
+
+
   }
 
 }

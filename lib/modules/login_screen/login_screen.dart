@@ -1,7 +1,6 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_project/modules/login_screen/cubit/cubit.dart';
 import 'package:shop_project/modules/login_screen/cubit/state.dart';
 import 'package:shop_project/modules/singin_screen/singin_screen.dart';
@@ -71,15 +70,21 @@ class LoginScreen extends StatelessWidget {
                           type: TextInputType.text,
                           labeltext: 'Password',
                           hintText: 'Enter Password',
-                          obscureText: _secirty,
-                          prefix: Icon(Icons.lock, color: defultColor,),
-                          suffix: IconButton(onPressed: () {
-                            // setState(() {
-                            //   _secirty =!_secirty;
-                            // });
+                          obscureText: LoginCubit.get(context).secirty,
+                          onSubmited: (value){
+                            if (formkey.currentState.validate()){
+                              print(passController.text);
+                              LoginCubit.get(context).UserLogin(email: emailController.text, password:passController.text);
+
+                              //NavigateTo(router:WelcomeScreen(),context: context);
+                            }
                           },
-                            icon: Icon(_secirty ? Icons.visibility : (Icons
-                                .visibility_off),),),
+                          prefix: Icon(Icons.lock, color: defultColor,),
+                          suffix: LoginCubit.get(context).suffix,
+                          suffixFun: (){
+                            LoginCubit.get(context).ChangePasswordVisibility();
+                          },
+
 
                           validator: (value) {
                             if (value == null || value.isEmpty) {
