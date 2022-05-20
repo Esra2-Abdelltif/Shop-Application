@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_project/shared/Styles/colors.dart';
 import 'package:shop_project/shared/Styles/theme/cubit/cubit.dart';
 import 'package:shop_project/shared/Styles/theme/cubit/states.dart';
 
@@ -10,7 +11,10 @@ class Setting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(children: [
+      Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +34,7 @@ class Setting extends StatelessWidget {
                 width: 35,
                 height: 35,
                 decoration: BoxDecoration(
-                  color: Colors.deepOrange,
+                  color: defultColor,
                   borderRadius: BorderRadius.circular(7),
                 ),
                 child: Icon(
@@ -52,6 +56,8 @@ class Setting extends StatelessWidget {
           ),
         ],
       ),
+    )
+      ]),
     );
   }
 

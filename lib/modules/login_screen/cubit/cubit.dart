@@ -11,6 +11,7 @@ class LoginCubit extends Cubit<LogInStates>
 {
   LoginCubit() : super(InitialLogInStates());
   static  LoginCubit get(context) => BlocProvider.of(context);
+  //هعمل object من model عشان اعرف acess عليه و اخد منه data
   LoginModel loginModel;
 
   void UserLogin({@required String email ,@required String password}){

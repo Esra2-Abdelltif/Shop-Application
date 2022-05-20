@@ -2,11 +2,13 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_project/layout/home_screen/home_screen.dart';
 import 'package:shop_project/modules/login_screen/cubit/cubit.dart';
 import 'package:shop_project/modules/login_screen/cubit/state.dart';
 import 'package:shop_project/modules/singin_screen/singin_screen.dart';
 import 'package:shop_project/modules/welcome_screen/welcome_screen.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
+import 'package:shop_project/shared/Network/local/cacheHelper.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
 import 'package:shop_project/shared/compoenets/components.dart';
 class LoginScreen extends StatelessWidget {
@@ -28,16 +30,17 @@ class LoginScreen extends StatelessWidget {
             if(state.loginModel.status)
               {
                 ErrorShow(massage: state.loginModel.message ,
-                    background: Colors.green ,
+                    state: ToastState.SUCCESS,
                     gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 5,
                     toastLength: Toast.LENGTH_LONG);
+               CacheHelper.saveDate(key: 'token', value: state.loginModel.data.token).then((value)  {
+               NavigateAndFinsh(context: context,router: HomeScreen());
+               });
               }
             else{
               ErrorShow(massage: state.loginModel.message ,
-                  background: Colors.red ,
+                  state: ToastState.ERROR,
                   gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 5,
                   toastLength: Toast.LENGTH_LONG);
             }
           }
@@ -62,6 +65,7 @@ class LoginScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25,),
                       child: defulutTextFormFild(
+                        style: Theme.of(context).textTheme.bodyText2,
                         controller: emailController,
                         type: TextInputType.emailAddress,
                         labeltext: 'Email Adress',
@@ -86,6 +90,7 @@ class LoginScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25,),
                       child: defulutTextFormFild(
+                          style: Theme.of(context).textTheme.bodyText2,
                           controller: passController,
                           type: TextInputType.text,
                           labeltext: 'Password',

@@ -40,11 +40,11 @@ Widget defulutTextFormFild ({
   VoidCallback suffixFun,
   ValueChanged<String> onChanged,
   VoidCallback onTap,
-  Function onSubmited,
+  Function onSubmited,TextStyle style
 
 
 })=>TextFormField(
-  //style: Theme.of(context).textTheme.bodyText2,
+  style: style,
   validator:validator,
   controller:controller,
   keyboardType: type,
@@ -60,7 +60,10 @@ onFieldSubmitted: onSubmited,
     ),
     border:  OutlineInputBorder(),
     labelText: labeltext,
+
     hintText: hintText,
+    hintStyle: TextStyle(color: Color(0xFF8D8E98)),
+
     labelStyle: TextStyle(color: defultColor),
     prefixIcon: prefix,
     suffixIcon: IconButton(icon: Icon(suffix,color: defultColor),
@@ -78,13 +81,33 @@ Widget defultTextButton({String text ,VoidCallback onPressed})=>
 TextButton(onPressed: onPressed,
 child: Text(text,));
 
-
-Future<bool> ErrorShow({@required String massage ,Color background , int timeInSecForIosWeb , ToastGravity  gravity,Toast toastLength })=>Fluttertoast.showToast(
+//toast بيعرض رساله تسجيل الدخل سواء البايانات صح او غلط
+Future<bool> ErrorShow({@required String massage ,@required ToastState state , int timeInSecForIosWeb , ToastGravity  gravity,Toast toastLength })=>
+    Fluttertoast.showToast(
     msg: massage,
     toastLength:  toastLength,
     gravity:gravity,
-    timeInSecForIosWeb: timeInSecForIosWeb,
-    backgroundColor: background,
+    timeInSecForIosWeb:5,
+    backgroundColor: chooseToastColor(state),
     textColor: Colors.white,
     fontSize: 16.0
 );
+
+enum ToastState {SUCCESS,ERROR,WARNING}
+Color chooseToastColor(ToastState state){
+  Color color;
+ switch(state)
+     {
+   case ToastState.SUCCESS:
+     color = Colors.green;
+     break;
+   case ToastState.ERROR:
+     color = Colors.red;
+     break;
+   case ToastState.WARNING:
+     color = Colors.blue;
+     break;
+
+     }
+     return color;
+}

@@ -4,6 +4,7 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:shop_project/modules/login_screen/login_screen.dart';
 import 'package:shop_project/modules/welcome_screen/welcome_screen.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
+import 'package:shop_project/shared/Network/local/cacheHelper.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
 import 'package:shop_project/shared/Styles/size_config.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -24,7 +25,11 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
   //لو عاوزه اخلي لي كل صفحه لون مختلف
  // int _currentPage = 0;
   // List colors = [Color(0xffDAD3C8), Color(0xffFFE5DE), Color(0xffDCF6E6)];
-
+void Onsubmit(){
+  CacheHelper.saveDate(key:'onBoarding', value: true).then((value) =>
+      NavigateAndFinsh(router:WelcomeScreen(),context: context)
+  );
+}
   List<BoardingModel> boarding =[
     BoardingModel(image:'assets/images/onboarding_1.png' ,
         title: 'Online Shopping',
@@ -117,7 +122,11 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
                       padding: const EdgeInsets.all(30),
                       child: ElevatedButton(
                         onPressed: () {
-                          NavigateAndFinsh(router:WelcomeScreen(),context: context);
+                          //bt3ml save lw tm el tsgel
+                          CacheHelper.saveDate(key: 'onBoarding', value: true).then((value) =>
+                              NavigateAndFinsh(router:const WelcomeScreen(),context: context)
+                          );
+
                         },
                         child: Text("Start"),
                         style: ElevatedButton.styleFrom(
