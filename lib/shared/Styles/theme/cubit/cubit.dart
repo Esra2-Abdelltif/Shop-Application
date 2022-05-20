@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_project/shared/Network/local/cacheHelper.dart';
 import 'package:shop_project/shared/Styles/theme/cubit/states.dart';
 
-class AppCubit extends Cubit<AppStates>
+class ThemeAppCubit extends Cubit<ThemeAppStates>
 {
-  AppCubit() : super(InitialAppState());
-  static  AppCubit get(context) => BlocProvider.of(context);
+  ThemeAppCubit() : super(InitialThemeAppState());
+  static  ThemeAppCubit get(context) => BlocProvider.of(context);
 
   bool IsDark=false;
   void ChangeAppMode({bool fromShared}){

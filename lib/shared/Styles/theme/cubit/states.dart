@@ -2,13 +2,13 @@
 import 'package:flutter/foundation.dart';
 
 @immutable
-abstract class AppStates
+abstract class ThemeAppStates
 {
-  const AppStates();
+  const ThemeAppStates();
 }
- class InitialAppState extends AppStates{}
+ class InitialThemeAppState extends ThemeAppStates{}
 
-class AppChangeModeState extends AppStates {}
+class AppChangeModeState extends ThemeAppStates {}
 
 
 

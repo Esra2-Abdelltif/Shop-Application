@@ -1,6 +1,7 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_project/modules/login_screen/cubit/cubit.dart';
 import 'package:shop_project/modules/login_screen/cubit/state.dart';
 import 'package:shop_project/modules/singin_screen/singin_screen.dart';
@@ -21,7 +22,26 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LogInStates>(
-      listener: (BuildContext context,  state) {},
+      listener: (BuildContext context,  state) {
+        if(state is LoginSuccessState)
+          {
+            if(state.loginModel.status)
+              {
+                ErrorShow(massage: state.loginModel.message ,
+                    background: Colors.green ,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 5,
+                    toastLength: Toast.LENGTH_LONG);
+              }
+            else{
+              ErrorShow(massage: state.loginModel.message ,
+                  background: Colors.red ,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 5,
+                  toastLength: Toast.LENGTH_LONG);
+            }
+          }
+      },
     builder: (BuildContext context,   state) {
     return Scaffold(
         body: Center(

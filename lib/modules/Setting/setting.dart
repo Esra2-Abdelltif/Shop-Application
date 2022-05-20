@@ -63,14 +63,14 @@ class SwitchTheme extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(
-      listener: (BuildContext context, AppStates state) {},
-      builder: (BuildContext context,  AppStates state) {
+    return BlocConsumer<ThemeAppCubit, ThemeAppStates>(
+      listener: (BuildContext context, ThemeAppStates state) {},
+      builder: (BuildContext context,  ThemeAppStates state) {
         return CupertinoSwitch(
-          value: AppCubit.get(context).IsDark,
+          value: ThemeAppCubit.get(context).IsDark,
           activeColor: Theme.of(context).primaryColor,
           onChanged: (value) {
-            AppCubit.get(context).ChangeAppMode();
+            ThemeAppCubit.get(context).ChangeAppMode();
           },
         );
       },

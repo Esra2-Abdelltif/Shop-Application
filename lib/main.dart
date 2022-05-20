@@ -36,15 +36,15 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: ((context) => NewsCubit())),
-        BlocProvider(create: (BuildContext context )=>AppCubit()..ChangeAppMode(fromShared: IsDark))
+        BlocProvider(create: (BuildContext context )=>ThemeAppCubit()..ChangeAppMode(fromShared: IsDark))
       ],
-      child: BlocConsumer<AppCubit,AppStates>(
+      child: BlocConsumer<ThemeAppCubit,ThemeAppStates>(
         listener: (context ,state){},
         builder: (context ,state){
           return  MaterialApp(
             theme: lightthemes,
             darkTheme: darkthemes,
-            themeMode: AppCubit.get(context).IsDark ? ThemeMode.dark :ThemeMode.light ,
+            themeMode: ThemeAppCubit.get(context).IsDark ? ThemeMode.dark :ThemeMode.light ,
             debugShowCheckedModeBanner: false,
             home:OnBoardinScreen(),
           );

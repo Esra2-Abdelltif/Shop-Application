@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
 
 
@@ -76,3 +77,14 @@ onFieldSubmitted: onSubmited,
 Widget defultTextButton({String text ,VoidCallback onPressed})=>
 TextButton(onPressed: onPressed,
 child: Text(text,));
+
+
+Future<bool> ErrorShow({@required String massage ,Color background , int timeInSecForIosWeb , ToastGravity  gravity,Toast toastLength })=>Fluttertoast.showToast(
+    msg: massage,
+    toastLength:  toastLength,
+    gravity:gravity,
+    timeInSecForIosWeb: timeInSecForIosWeb,
+    backgroundColor: background,
+    textColor: Colors.white,
+    fontSize: 16.0
+);
