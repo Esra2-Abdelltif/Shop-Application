@@ -13,3 +13,12 @@ void Onsubmit({context,router}){
       NavigateAndFinsh(router:router,context: context)
   );
 }
+
+void LogOut({context,router}){
+  CacheHelper.sharedPreferences.remove('token').then((value) {
+    if(value ){
+      NavigateAndFinsh(context: context,router: router);
+    }
+
+  });
+}

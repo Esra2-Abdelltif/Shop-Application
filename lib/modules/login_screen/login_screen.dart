@@ -5,8 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_project/layout/home_screen/home_screen.dart';
 import 'package:shop_project/modules/login_screen/cubit/cubit.dart';
 import 'package:shop_project/modules/login_screen/cubit/state.dart';
-import 'package:shop_project/modules/singin_screen/singin_screen.dart';
-import 'package:shop_project/modules/welcome_screen/welcome_screen.dart';
+import 'package:shop_project/modules/logout_screen/logout_screen.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
 import 'package:shop_project/shared/Network/local/cacheHelper.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
@@ -145,7 +144,7 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         Text('Don\'t have an account ?',style:TextStyle(fontWeight: FontWeight.w300,color: Color(0xFF8D8E98),)),
                         defultTextButton(text: 'Sign Up...', onPressed:() {
-                          NavigateTo(router: SignUpScreen(),context: context);
+                          NavigateTo(router: LogOutScreen(),context: context);
 
                         },),
 

@@ -2,13 +2,15 @@
 import 'package:flutter/foundation.dart';
 
 @immutable
-abstract class NewsStates
+abstract class AppStates
 {
-  const NewsStates();
+  const AppStates();
 }
 
-class InitialNewsStates extends NewsStates{}
-class AppChangeModeState extends NewsStates{}
+class InitialAppStates extends AppStates{}
+class AppChangeModeState extends AppStates{}
+class AppChangeBottomNavBarState extends AppStates{}
+
 
 
 

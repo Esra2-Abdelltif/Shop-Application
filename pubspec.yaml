@@ -48,6 +48,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   fluttertoast: ^8.0.3
   animated_splash_screen: ^1.2.0
+  fancy_bottom_navigation: ^0.3.2
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +79,9 @@ flutter:
     - family: janna
       fonts:
         - asset: assets/fonts/Janna LT Bold.ttf
+    - family: Pacifico
+      fonts:
+        - asset: assets/fonts/Pacifico-Regular.ttf
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -5,6 +5,9 @@ import 'package:shop_project/shared/Styles/colors.dart';
 import 'package:shop_project/shared/Styles/theme/cubit/cubit.dart';
 import 'package:shop_project/shared/Styles/theme/cubit/states.dart';
 
+import '../../shared/Constans/constans.dart';
+import '../welcome_screen/welcome_screen.dart';
+
 
 class Setting extends StatelessWidget {
   const Setting({ Key key}) : super(key: key);
@@ -12,7 +15,7 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+
       body: Column(children: [
       Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -27,6 +30,61 @@ class Setting extends StatelessWidget {
           ),
           SizedBox(
             height: 24,
+          ),
+          InkWell(
+            onTap: (){
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Log out ? ',style: TextStyle(color: Colors.white, fontSize: 18)),
+                  content: const Text('Do You sure to log out ?',  style: TextStyle(color: Colors.white, fontSize: 18)),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Cancel',  style: TextStyle(color: Colors.white, fontSize: 18)),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        LogOut(context: context,router: WelcomeScreen());
+
+                      },
+                      child: const Text('Log out',  style: TextStyle(color:Colors.white, fontSize: 18)),
+                    ),
+                  ],
+                  elevation: 24,
+                  backgroundColor: defultColor,
+                  // shape: CircleBorder(),
+                ),
+              );
+            },
+            child: Row(
+              children: [
+                Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    color: defultColor,
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  child: Icon(
+                    Icons.logout,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text('Log Out',
+                  style: Theme.of(context).textTheme.bodyText2,),
+
+
+
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 15,
           ),
           Row(
             children: [

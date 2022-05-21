@@ -26,9 +26,11 @@ ThemeData darkthemes = ThemeData(
 
       ),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  drawerTheme: DrawerThemeData(backgroundColor: HexColor('333739') ),
+
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: Colors.deepOrange,
+      selectedItemColor: defultColor,
       unselectedItemColor: Color(0xFF8D8E98),
       backgroundColor:HexColor('333739'),
       elevation: 20,
@@ -66,11 +68,12 @@ ThemeData lightthemes = ThemeData(
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: Colors.deepOrange,
+      selectedItemColor:defultColor,
       unselectedItemColor: Color(0xFF8D8E98),
       backgroundColor: Colors.white,
       elevation: 20,
     ),
+    drawerTheme: DrawerThemeData(backgroundColor: Colors.white, ),
     textTheme: TextTheme(
       bodyText1: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,color: Colors.black),
       bodyText2:  TextStyle(fontSize: 16, color: Colors.black),

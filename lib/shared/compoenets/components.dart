@@ -111,3 +111,26 @@ Color chooseToastColor(ToastState state){
      }
      return color;
 }
+
+//showDialog
+Widget showDialog({context,router, AlertDialog Function(BuildContext context) builder})=> showDialog(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+    title: const Text('Log out ? ',style: TextStyle(color: Colors.white, fontSize: 18)),
+    content: const Text('Do You sure to log out ?',  style: TextStyle(color: Colors.white, fontSize: 18)),
+    actions: [
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: const Text('Cancel',  style: TextStyle(color: Colors.white, fontSize: 18)),
+      ),
+      TextButton(
+        onPressed: (){
+        },
+        child: const Text('Log out',  style: TextStyle(color:Colors.white, fontSize: 18)),
+      ),
+    ],
+    elevation: 24,
+    backgroundColor: defultColor,
+    // shape: CircleBorder(),
+  ),
+);
