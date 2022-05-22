@@ -27,12 +27,6 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  //BottomNavBarState
-  int CurrentIndex = 0;
-
-
-
-
 
 
   // FancyBottomNavigation
@@ -55,6 +49,9 @@ class AppCubit extends Cubit<AppStates>
     Setting(),
 
   ];
+  //BottomNavBarState
+  int CurrentIndex = 0;
+
 
   void ChangeIndex(int index){
     CurrentIndex=index;
@@ -89,15 +86,15 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-  CategroyModel categroyModel;
+ CategoriesDataModel categoriesDataModel;
   void getCategoriesData(){
     emit(LoadingCategoriesDataStates());
     DioHelper.getData(
       Url: CATEGORY,
       token: token,
     ).then((value) {
-      categroyModel = CategroyModel.fromJson(value.data);
-      printFullText(categroyModel.data.firstPageUrl);
+      categoriesDataModel = CategoriesDataModel.fromJson(value.data);
+      printFullText(categoriesDataModel.toString());
 
       emit(SuccessCategoriesDataStates());
 
@@ -111,4 +108,11 @@ class AppCubit extends Cubit<AppStates>
 
   }
 
+  int indexCarouselSider = 0;
+
+  void ChangeindexCarouselSider(int index) {
+    indexCarouselSider = index;
+    emit(SuccessCategoriesDataStates());
+  }
 }
+

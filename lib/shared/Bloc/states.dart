@@ -10,6 +10,8 @@ abstract class AppStates
 class InitialAppStates extends AppStates{}
 class AppChangeModeStates extends AppStates{}
 class AppChangeBottomNavBarStates extends AppStates{}
+
+ class ChangeIndexCarouselSliderState extends AppStates{}
  class LoadingHomeDataStates extends AppStates{}
  class SuccessHomeDataStates extends AppStates{}
  class ErrorHomeDataStates extends AppStates{

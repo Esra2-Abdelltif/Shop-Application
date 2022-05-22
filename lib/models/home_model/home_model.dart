@@ -24,23 +24,23 @@ class HomeModel {
 }
 
 class HomeDataModel {
-  List<Banners> banners;
-  List<Products> products;
+  List<BannersModel> banners;
+  List<ProductsModel> products;
   String ad;
 
   HomeDataModel({this.banners, this.products, this.ad});
 
   HomeDataModel.fromJson(Map<String, dynamic> json) {
     if (json['banners'] != null) {
-      banners = new List<Banners>();
+      banners = new List<BannersModel>();
       json['banners'].forEach((v) {
-        banners.add(new Banners.fromJson(v));
+        banners.add(new BannersModel.fromJson(v));
       });
     }
     if (json['products'] != null) {
-      products = new List<Products>();
+      products = new List<ProductsModel>();
       json['products'].forEach((v) {
-        products.add(new Products.fromJson(v));
+        products.add(new ProductsModel.fromJson(v));
       });
     }
     ad = json['ad'];
@@ -59,15 +59,15 @@ class HomeDataModel {
   }
 }
 
-class Banners {
+class BannersModel {
   int id;
   String image;
   Null category;
   Null product;
 
-  Banners({this.id, this.image, this.category, this.product});
+  BannersModel({this.id, this.image, this.category, this.product});
 
-  Banners.fromJson(Map<String, dynamic> json) {
+  BannersModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     image = json['image'];
     category = json['category'];
@@ -84,7 +84,7 @@ class Banners {
   }
 }
 
-class Products {
+class ProductsModel {
   int id;
   dynamic price;
   dynamic oldPrice;
@@ -98,7 +98,7 @@ class Products {
   bool inFavorites;
   bool inCart;
 
-  Products(
+  ProductsModel(
       {this.id,
         this.price,
         this.oldPrice,
@@ -110,7 +110,7 @@ class Products {
         this.inFavorites,
         this.inCart});
 
-  Products.fromJson(Map<String, dynamic> json) {
+  ProductsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     price = json['price'];
     oldPrice = json['old_price'];
