@@ -77,6 +77,12 @@ class Setting extends StatelessWidget {
                 ),
                 Text('Log Out',
                   style: Theme.of(context).textTheme.bodyText2,),
+                Spacer(),
+                Icon(
+                  Icons.navigate_next,
+                  color:defultColor ,
+                  size: 30,
+                ),
 
 
 

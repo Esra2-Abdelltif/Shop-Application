@@ -1,19 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_project/modules/Setting/setting.dart';
 import 'package:shop_project/modules/favorites_screen/favorites_screen.dart';
-import 'package:shop_project/modules/prodect_Screen/prodect_Screen.dart';
-import 'package:shop_project/modules/welcome_screen/welcome_screen.dart';
 import 'package:shop_project/shared/Bloc/cubit.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
-import 'package:shop_project/shared/Network/local/cacheHelper.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
 
 import '../../shared/Bloc/states.dart';
 
 
-class HomeScreen extends StatelessWidget {
+class HomeLayout extends StatelessWidget {
 
   var ScaffoldKey = GlobalKey<ScaffoldState>();
   var FormKey = GlobalKey<FormState>();

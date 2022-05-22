@@ -8,35 +8,28 @@ class DioHelper {
         BaseOptions(
         baseUrl: 'https://student.valuxapps.com/api/',
        receiveDataWhenStatusError: true,
-        headers: {
-          'Content-Type':'application/json'
-        }
+
         // connectTimeout: 5000,
         // receiveTimeout: 3000
       ),
     );
   }
-  static Future<Response> getData({
-  @required String Url, @required Map<String, dynamic> Quary,String lang ='en',
-    String token
-  })async
 
-  {
-   dio.options.headers={'lang':lang ,'Authorization':token,};
-
+  static Future<Response> getData({@required String Url,  Map<String, dynamic> Quary, String lang ='en', String token})async {
+   dio.options.headers={
+     'Content-Type':'application/json',
+     'lang':lang ,
+     'Authorization':token??'',
+   };
 
    return await dio.get(Url,queryParameters: Quary);
   }
 
-  static Future<Response> postData({
-    @required String Url,
-     Map<String, dynamic> Quary,
-    @required Map<String, dynamic> data,
-    String lang ='en',
-    String token,
-  })async
-  {
-   dio.options.headers={'lang':lang ,'Authorization':token,};
+  static Future<Response>postData({@required String Url,Map<String,dynamic>Quary,@required Map<String,dynamic>data,String lang='en',String token,})async {
+   dio.options.headers={
+     'Content-Type':'application/json',
+     'lang':lang ,
+     'Authorization':token??'',};
     return await dio.post(Url,queryParameters: Quary,data: data);
   }
 }

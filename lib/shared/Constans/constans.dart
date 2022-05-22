@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_project/shared/Network/local/cacheHelper.dart';
 
 //abullah.ali@gmail.com
-
+String token='';
 void NavigateTo({context,router})=>  Navigator.push(context,MaterialPageRoute(builder: (context) => router));
 Future NavigateAndFinsh ({BuildContext context,router})=> Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => router), (Route<dynamic> route) => false);
 //using for boarding screen after login or signup
@@ -21,4 +21,13 @@ void LogOut({context,router}){
     }
 
   });
+}
+
+
+void printFullText(String text){
+
+final pattern = RegExp('.{1,800}');
+
+    pattern.allMatches (text). forEach((match) => print(match.group(0)));
+
 }

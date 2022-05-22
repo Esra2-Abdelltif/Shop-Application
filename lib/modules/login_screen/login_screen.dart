@@ -2,7 +2,7 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_project/layout/home_screen/home_screen.dart';
+import 'package:shop_project/layout/home_layout/home_layout.dart';
 import 'package:shop_project/modules/login_screen/cubit/cubit.dart';
 import 'package:shop_project/modules/login_screen/cubit/state.dart';
 import 'package:shop_project/modules/logout_screen/logout_screen.dart';
@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
                     gravity: ToastGravity.BOTTOM,
                     toastLength: Toast.LENGTH_LONG);
                CacheHelper.saveDate(key: 'token', value: state.loginModel.data.token).then((value)  {
-               NavigateAndFinsh(context: context,router: HomeScreen());
+               NavigateAndFinsh(context: context,router: HomeLayout());
                });
               }
             else{

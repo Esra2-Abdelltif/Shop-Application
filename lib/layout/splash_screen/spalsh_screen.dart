@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_project/layout/home_screen/home_screen.dart';
+import 'package:shop_project/layout/home_layout/home_layout.dart';
 import 'package:shop_project/modules/on_boarding_screen/on_boardin_screen.dart';
 import 'package:shop_project/shared/Network/local/cacheHelper.dart';
 
@@ -17,7 +17,7 @@ class SplashSCreen extends StatelessWidget {
 
     if(onBoarding != null)
     {
-      if(token!=null) widget= HomeScreen();
+      if(token!=null) widget= HomeLayout();
       else widget =WelcomeScreen();
     }
     else{
