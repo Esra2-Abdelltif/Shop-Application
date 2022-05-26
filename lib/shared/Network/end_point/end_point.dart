@@ -1,3 +1,5 @@
+import 'package:flutter/gestures.dart';
+
 const LOGIN ="login";
 const HOME ='home';
-const CATEGORY='categories';
+const Get_CATEGORY='categories';

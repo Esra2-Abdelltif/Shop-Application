@@ -28,7 +28,7 @@ void main()  async {
   token =CacheHelper.getDate(key: 'token');
   if(onBoarding !=null)
     {
-      if(token!=null) widget= Setting();
+      if(token!=null) widget= OnBoardinScreen();
       else widget =WelcomeScreen();
     }
   else{

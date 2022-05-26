@@ -51,17 +51,14 @@ class AppCubit extends Cubit<AppStates>
   ];
   //BottomNavBarState
   int CurrentIndex = 0;
-
-
   void ChangeIndex(int index){
     CurrentIndex=index;
-    // if (index==1)getSport();
-    // if (index==2)getScience();
-
     emit(AppChangeBottomNavBarStates());
   }
 
 
+
+//Get Product and Banner Data at Home
   HomeModel homeModel;
   void getHomeData(){
     emit(LoadingHomeDataStates());
@@ -85,12 +82,13 @@ class AppCubit extends Cubit<AppStates>
 
   }
 
+//Get Gategories Data at Home
 
  CategoriesDataModel categoriesDataModel;
   void getCategoriesData(){
     emit(LoadingCategoriesDataStates());
     DioHelper.getData(
-      Url: CATEGORY,
+      Url: Get_CATEGORY,
       token: token,
     ).then((value) {
       categoriesDataModel = CategoriesDataModel.fromJson(value.data);

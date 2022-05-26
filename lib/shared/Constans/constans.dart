@@ -9,7 +9,7 @@ void NavigateTo({context,router})=>  Navigator.push(context,MaterialPageRoute(bu
 Future NavigateAndFinsh ({BuildContext context,router})=> Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => router), (Route<dynamic> route) => false);
 //using for boarding screen after login or signup
 void Onsubmit({context,router}){
-  CacheHelper.saveDate(key: 'onBoarding', value: true).then((value) =>
+  CacheHelper.saveDate(key:'onBoarding', value: true).then((value) =>
       NavigateAndFinsh(router:router,context: context)
   );
 }
