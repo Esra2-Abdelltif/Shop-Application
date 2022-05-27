@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
           {
             if(state.loginModel.status)
               {
-                ShowToastMsg(massage: state.loginModel.message ,
+                showError(massage: state.loginModel.message ,
                     state: ToastState.SUCCESS,
                     gravity: ToastGravity.BOTTOM,
                     toastLength: Toast.LENGTH_LONG);
@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                });
               }
             else{
-              ShowToastMsg(massage: state.loginModel.message ,
+              showError(massage: state.loginModel.message ,
                   state: ToastState.ERROR,
                   gravity: ToastGravity.BOTTOM,
                   toastLength: Toast.LENGTH_LONG);

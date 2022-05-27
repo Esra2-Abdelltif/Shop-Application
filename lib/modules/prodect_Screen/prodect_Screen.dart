@@ -25,11 +25,12 @@ class ProdectScreen extends StatelessWidget {
       body: BlocConsumer<AppCubit,AppStates>(
         listener: (BuildContext context,AppStates state)
         {
+          if( state is InitialAppStates) print('loading AppShop ');
           if(state is SuccessChangeFavoritesSuccessState)
           {
             if(!state.changeIconeFavoriteModel.status)
             {
-              ShowToastMsg(massage: state.changeIconeFavoriteModel.message ,
+              showError(massage: state.changeIconeFavoriteModel.message ,
                   state: ToastState.ERROR,
                   gravity: ToastGravity.BOTTOM,
                   toastLength: Toast.LENGTH_LONG);
@@ -137,6 +138,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
                         onTap: (){
+                          print('details');
                           // NavigateToProductsDetails(context ,data.id!);
                           },
                         child: Container(
@@ -162,7 +164,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                        // color: Colors.red  ,
                                         icon: (AppCubit.get(context).FavoriteList[AppCubit.get(context).homeModel.data.products[index].id])?const Icon( Icons.favorite ,size: 30,) :const Icon(Icons.favorite_border)  ,
                                         color: (AppCubit.get(context).FavoriteList[AppCubit.get(context).homeModel.data.products[index].id])? Colors.red : Colors.grey ,
-  )
+                                      )
                                         ]
                                 ),
                                 Stack(
@@ -180,7 +182,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                       fontSize: 13,),):const SizedBox(),
                                   ],
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   height: 10,
                                 ),
                                 Padding(

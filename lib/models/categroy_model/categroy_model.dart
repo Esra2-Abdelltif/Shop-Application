@@ -1,6 +1,7 @@
 class CategoriesDataModel {
   bool status;
   CategoriesData categoriesData;
+
   CategoriesDataModel.fromJson(Map<String, dynamic> categoriesjson) {
     status = categoriesjson["status"];
     categoriesData = CategoriesData.fromJson(categoriesjson["data"]);

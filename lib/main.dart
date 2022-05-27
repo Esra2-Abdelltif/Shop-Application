@@ -24,12 +24,12 @@ void main()  async {
 
   bool IsDark =CacheHelper.getDate(key: 'IsDark');
   Widget widget;
-  bool onBoarding =CacheHelper.getDate(key: 'onBoarding');
-  token =CacheHelper.getDate(key: 'token');
-  print(token);
+  print(Shoptoken);
+    print(token);
+
   if(onBoarding !=null)
     {
-      if(token!=null) widget= OnBoardinScreen();
+      if(Shoptoken!=null) widget= OnBoardinScreen();
       else widget =WelcomeScreen();
     }
   else{
@@ -39,7 +39,7 @@ void main()  async {
   print(onBoarding);
 
   BlocOverrides.runZoned( () {
-    runApp( MyApp(IsDark,widget));
+    runApp( MyApp(IsDark: IsDark,StartWidget: widget));
 
   },
     blocObserver: MyBlocObserver(),
@@ -50,14 +50,14 @@ class MyApp extends StatelessWidget {
   final bool IsDark;
   // bool onBoarding;
   final Widget StartWidget;
-  MyApp(this.IsDark,this.StartWidget);
+  MyApp({this.IsDark,this.StartWidget});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: ((context) => AppCubit()..getCategoriesData()..getHomeData())),
+        BlocProvider(create: ((context) => AppCubit()..getHomeData()..getCategoriesData())),
         BlocProvider(create: (BuildContext context )=>ThemeAppCubit()..ChangeAppMode(fromShared: IsDark))
       ],
       child: BlocConsumer<ThemeAppCubit,ThemeAppStates>(

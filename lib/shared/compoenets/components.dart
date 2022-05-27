@@ -82,7 +82,7 @@ TextButton(onPressed: onPressed,
 child: Text(text,));
 
 //toast بيعرض رساله تسجيل الدخل سواء البايانات صح او غلط
-Future<bool> ShowToastMsg({@required String massage ,@required ToastState state , int timeInSecForIosWeb , ToastGravity  gravity,Toast toastLength })=>
+Future<bool> showError({@required String massage ,@required ToastState state , int timeInSecForIosWeb , ToastGravity  gravity,Toast toastLength })=>
     Fluttertoast.showToast(
     msg: massage,
     toastLength:  toastLength,

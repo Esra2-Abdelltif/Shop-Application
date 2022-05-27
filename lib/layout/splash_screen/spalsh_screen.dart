@@ -4,6 +4,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_project/layout/home_layout/home_layout.dart';
 import 'package:shop_project/modules/on_boarding_screen/on_boardin_screen.dart';
+import 'package:shop_project/shared/Constans/constans.dart';
 import 'package:shop_project/shared/Network/local/cacheHelper.dart';
 
 import '../../modules/welcome_screen/welcome_screen.dart';
@@ -12,13 +13,13 @@ class SplashSCreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget widget;
-    bool onBoarding =CacheHelper.getDate(key:'onBoarding');
-    String token =CacheHelper.getDate(key: 'token');
 
     if(onBoarding != null)
     {
-      if(token!=null) widget= HomeLayout();
-      else widget =WelcomeScreen();
+      if(Shoptoken!=null)
+        widget= HomeLayout();
+      else
+        widget =WelcomeScreen();
     }
     else{
       OnBoardinScreen();

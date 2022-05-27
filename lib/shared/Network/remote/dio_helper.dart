@@ -19,7 +19,7 @@ class DioHelper {
    dio.options.headers={
      'Content-Type':'application/json',
      'lang':lang ,
-     'Authorization':token,
+     'Authorization':token??'',
    };
 
    return await dio.get(Url,queryParameters: Quary);
@@ -29,7 +29,7 @@ class DioHelper {
    dio.options.headers={
      'Content-Type':'application/json',
      'lang':lang ,
-     'Authorization':token,};
+     'Authorization':token??'',};
     return await dio.post(Url,queryParameters: Quary,data: data);
   }
 }
