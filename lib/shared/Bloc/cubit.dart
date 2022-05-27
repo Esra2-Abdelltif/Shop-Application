@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_project/models/categroy_model/categroy_model.dart';
+import 'package:shop_project/models/favorites_model/favorites_model.dart';
 import 'package:shop_project/models/home_model/home_model.dart';
 import 'package:shop_project/modules/Setting/setting.dart';
 import 'package:shop_project/modules/cart_screen/cart_screen.dart';
 import 'package:shop_project/modules/cateogries_screen/cateogries_screen.dart';
+import 'package:shop_project/modules/favorites_screen/favorites_screen.dart';
 import 'package:shop_project/modules/prodect_Screen/prodect_Screen.dart';
 import 'package:shop_project/shared/Bloc/states.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
@@ -37,6 +39,8 @@ class AppCubit extends Cubit<AppStates>
     BottomNavigationBarItem(
         icon: Icon(Icons.category), label: 'Cateogries'),
     BottomNavigationBarItem(
+        icon: Icon(Icons.favorite), label: 'Favorite'),
+    BottomNavigationBarItem(
         icon: Icon(Icons.add_shopping_cart), label: 'Cart'),
     BottomNavigationBarItem(
         icon: Icon(Icons.settings), label: 'Settings'),
@@ -45,6 +49,7 @@ class AppCubit extends Cubit<AppStates>
   List<Widget> Screen = [
     ProdectScreen(),
     CateogriesScreen(),
+    FavoritesScreen(),
     CartScreen(),
     Setting(),
 
@@ -54,6 +59,36 @@ class AppCubit extends Cubit<AppStates>
   void ChangeIndex(int index){
     CurrentIndex=index;
     emit(AppChangeBottomNavBarStates());
+  }
+
+
+//Favorite Product
+  Map<int,bool> FavoriteList={};
+  ChangeIconeFavoriteModel changeIconeFavoriteModel;
+
+  void ChangeIconFavorites({@required int ProductId}){
+    FavoriteList[ProductId] = !FavoriteList[ProductId];
+    emit(LoadingsChangeFavoritesStates());
+    DioHelper.postData(
+      Url: FAVORITES,
+      data:{
+        'product_id':ProductId,
+      },
+      token: token,
+    ).then((value) {
+      changeIconeFavoriteModel=  ChangeIconeFavoriteModel.fromJson(value.data);
+      print(value.data);
+      if(!changeIconeFavoriteModel.status)
+      {
+        FavoriteList[ProductId] = !FavoriteList[ProductId];
+      }
+
+      emit(SuccessChangeFavoritesSuccessState(changeIconeFavoriteModel));
+    }).catchError((error){
+      FavoriteList[ProductId] = !FavoriteList[ProductId];
+      print(error.toString());
+      emit(ErrorChangeFavoritesStates(error.toString()));
+    });
   }
 
 
@@ -67,8 +102,10 @@ class AppCubit extends Cubit<AppStates>
       token: token,
     ).then((value) {
      homeModel =HomeModel.fromJson(value.data);
-    printFullText(homeModel.data.banners[0].image);
-     printFullText(homeModel.toString());
+    homeModel.data.products.forEach((element) {
+       FavoriteList.addAll({element.id: element.inFavorites});
+     });
+print(FavoriteList.toString());
 
      emit(SuccessHomeDataStates());
 
@@ -106,11 +143,16 @@ class AppCubit extends Cubit<AppStates>
 
   }
 
+
+  //CarouselSlider
   int indexCarouselSider = 0;
 
   void ChangeindexCarouselSider(int index) {
     indexCarouselSider = index;
     emit(SuccessCategoriesDataStates());
   }
+
+
+
 }
 

@@ -26,6 +26,7 @@ void main()  async {
   Widget widget;
   bool onBoarding =CacheHelper.getDate(key: 'onBoarding');
   token =CacheHelper.getDate(key: 'token');
+  print(token);
   if(onBoarding !=null)
     {
       if(token!=null) widget= OnBoardinScreen();

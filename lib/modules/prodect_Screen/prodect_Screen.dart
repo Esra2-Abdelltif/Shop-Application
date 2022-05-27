@@ -2,17 +2,17 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_project/models/categroy_model/categroy_model.dart';
 import 'package:shop_project/models/home_model/home_model.dart';
-import 'package:shop_project/modules/cart_screen/cart_screen.dart';
 import 'package:shop_project/shared/Bloc/cubit.dart';
 import 'package:shop_project/shared/Bloc/states.dart';
-import 'package:shop_project/shared/Constans/constans.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
 import 'package:shop_project/shared/Styles/size_config.dart';
 import 'package:shop_project/shared/compoenets/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../shared/Network/local/cacheHelper.dart';
 
 class ProdectScreen extends StatelessWidget {
   const ProdectScreen({Key key}) : super(key: key);
@@ -25,7 +25,16 @@ class ProdectScreen extends StatelessWidget {
       body: BlocConsumer<AppCubit,AppStates>(
         listener: (BuildContext context,AppStates state)
         {
-          if(state is InitialAppStates) print('intial state');
+          if(state is SuccessChangeFavoritesSuccessState)
+          {
+            if(!state.changeIconeFavoriteModel.status)
+            {
+              ShowToastMsg(massage: state.changeIconeFavoriteModel.message ,
+                  state: ToastState.ERROR,
+                  gravity: ToastGravity.BOTTOM,
+                  toastLength: Toast.LENGTH_LONG);
+            }
+          }
         },
 
         builder: (BuildContext context ,AppStates state) {
@@ -36,8 +45,9 @@ class ProdectScreen extends StatelessWidget {
 
           return ConditionalBuilder(
             condition:cubit.homeModel !=null && cubit.categoriesDataModel !=null,
-            fallback: (context)=>  Center(
-             child: CircularProgressIndicator(),
+            fallback: (context)=>  const Center(
+             // ignore: unnecessary_const
+             child: const CircularProgressIndicator(),
             ),
             builder: (context) => SingleChildScrollView(
               child: Column(
@@ -53,8 +63,8 @@ class ProdectScreen extends StatelessWidget {
                       aspectRatio: 16/9,
                       viewportFraction: 0.9,
                       autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 3),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration: const Duration(milliseconds: 800),
                       autoPlayCurve: Curves.fastLinearToSlowEaseIn,
                       enlargeCenterPage: true,
                       onPageChanged: ((index, reason)=> AppCubit.get(context).ChangeindexCarouselSider(index)),
@@ -68,11 +78,11 @@ class ProdectScreen extends StatelessWidget {
                       );
                     }).toList(),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Center(child: AnimatedSmoothIndicator(
-                    effect: ExpandingDotsEffect(
+                    effect: const ExpandingDotsEffect(
                       activeDotColor: defultColor,
                       dotColor: Colors.grey,
                       dotHeight: 15,
@@ -83,12 +93,12 @@ class ProdectScreen extends StatelessWidget {
                     count:AppCubit.get(context).homeModel.data.banners.length,
                     activeIndex:AppCubit.get(context).indexCarouselSider,
                   ) ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   //buildCategory(categorymodel,context),
                   buildCategories(categorymodel,context),
-                  buildProductItem(productmodel),
+                  buildProductItem(productmodel,context),
 
                 ],),
             ),
@@ -101,13 +111,14 @@ class ProdectScreen extends StatelessWidget {
     );
   }
 
-  Widget buildProductItem(HomeModel modelHome,)=> SingleChildScrollView(
+  Widget buildProductItem(HomeModel modelHome,BuildContext context)=> SingleChildScrollView(
+
         child: Column(
 crossAxisAlignment: CrossAxisAlignment.start,
     children: [
         //Banner Slider
-        Padding(
-          padding: const EdgeInsets.only(left: 15),
+        const Padding(
+          padding: EdgeInsets.only(left: 15),
           child: Text('Product',style: TextStyle(fontSize: 30,color: defultColor)),
         ),
         Padding(
@@ -115,7 +126,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
           child: Container(
             child: GridView.count(
               shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
                 crossAxisSpacing: 1.0,
                 mainAxisSpacing: 1.0,
@@ -123,101 +134,101 @@ crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(modelHome.data.products.length, (index) =>Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Column(
-  children: [
-  InkWell(
-  onTap: (){
-  // NavigateToProductsDetails(context ,data.id!);
-  },
-  child: Container(
-  decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),
-    border: Border.all(
-        width: 2,
-        color:Colors.grey[300]
-    ),
-  color: Colors.white,
-
-
-  ),
-
-  child: Padding(
-  padding: const EdgeInsets.all(15.0),
-  child: Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-  Row(children: [
-  Spacer(),
-  IconButton(onPressed: (){
-  //cubit.changeFavorites(data.id);
-  },
-  icon: Icon( Icons.favorite_border_rounded,size: 30,)   ,
-  color: Colors.red  ,
-  // icon: (cubit.FavoriteList[data.id]!)?Icon( Icons.favorite ,size: 30,) :Icon(Icons.favorite_border)  ,
-  // color: (cubit.FavoriteList[data.id]!)? Colors.red : Colors.grey ,
-  ),
-  ]),
-  Stack(
-  alignment: Alignment.bottomRight,
-  children: [
-  Hero(
-  tag: "${modelHome.data.products[index].id}",
-  child: Image(
-  image: NetworkImage("${modelHome.data.products[index].image}"),
-  height:200,
-  width: 200,
-  ),
-  ),
-  (modelHome.data.products[index].discount !=0)?Text("DISCOUNT",style: TextStyle(
-  backgroundColor: Colors.red,
-  color: Colors.white,
-  fontSize: 13,
-  ),):SizedBox(),
-  ],
-  ),
-  SizedBox(height: 10,),
-  Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 3),
-  child: Text("${modelHome.data.products[index].name}", overflow: TextOverflow.ellipsis,maxLines: 2,style:TextStyle(
-  color: Colors.black,height: 1.2
-
-
-  ),),
-  ),
-  Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 3),
-  child: Row(
-  children: [
-  Text("${modelHome.data.products[index].price.round()}\$" ,style: TextStyle(
-  color: defultColor,
-  fontSize: 20.0,
-  fontWeight: FontWeight.bold
-  ),),
-  SizedBox(width: 5,),
-  (modelHome.data.products[index].discount !=0)?
-  Text("${modelHome.data.products[index].oldPrice.round()}" ,style: TextStyle(
-  color: Colors.grey,
-  fontSize: 15.0,
-  decoration: TextDecoration.lineThrough
-
-  ),) : SizedBox() ,
-
-  ],
-  ),
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          // NavigateToProductsDetails(context ,data.id!);
+                          },
+                        child: Container(
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),
+                            border: Border.all(width: 2, color:Colors.grey[300]),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children:
+                              [
+                                Row(
+                                    children: [
+                                      const Spacer(),
+                                      IconButton(
+                                        onPressed: (){
+                                          //print(modelHome.data.products[index].id);
+                                          AppCubit.get(context).ChangeIconFavorites(ProductId: modelHome.data.products[index].id);
+                                          },
+                                      //  icon: Icon( Icons.favorite_border_rounded,size: 30,)   ,
+                                       // color: Colors.red  ,
+                                        icon: (AppCubit.get(context).FavoriteList[AppCubit.get(context).homeModel.data.products[index].id])?const Icon( Icons.favorite ,size: 30,) :const Icon(Icons.favorite_border)  ,
+                                        color: (AppCubit.get(context).FavoriteList[AppCubit.get(context).homeModel.data.products[index].id])? Colors.red : Colors.grey ,
   )
-
-  ],
+                                        ]
+                                ),
+                                Stack(
+                                  alignment: Alignment.bottomRight,
+                                  children: [
+                                    Hero(
+                                      tag: "${modelHome.data.products[index].id}",
+                                       child: Image(
+                                         image: NetworkImage("${modelHome.data.products[index].image}"),
+                                         height:200, width: 200,
+                                       ),
   ),
-  ),
-  ),
-  ),
-  ],
-  )),
+                                    (modelHome.data.products[index].discount !=0)?const Text("DISCOUNT",style: TextStyle(
+                                      backgroundColor: Colors.red, color: Colors.white,
+                                      fontSize: 13,),):const SizedBox(),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                                  child: Text("${modelHome.data.products[index].name}",
+                                    overflow: TextOverflow.ellipsis,maxLines: 2,style:const TextStyle(color: Colors.black,height: 1.2
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                                  child: Row(
+                                    children: [
+                                      Text("${modelHome.data.products[index].price.round()}\$" ,
+                                        style: const TextStyle(
+                                            color: defultColor,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                      const SizedBox(width: 5,),
+                                      (modelHome.data.products[index].discount !=0)? Text("${modelHome.data.products[index].oldPrice.round()}" ,
+                                        style: const TextStyle(color: Colors.grey,
+                                            fontSize: 15.0,
+                                            decoration: TextDecoration.lineThrough
+                                        ),) : const SizedBox() ,
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ),
                 )
-
-
-                )),
+            )
           ),
-  ],),
-      );
+        )
+    ]
+
+        ),
+  );
+
+
+
   Widget buildCategory(CategoriesDataModel categroyModel,BuildContext context,)=> Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -225,11 +236,11 @@ crossAxisAlignment: CrossAxisAlignment.start,
         padding: const EdgeInsets.only(left: 15),
         child: Row(
           children: [
-            Text('Category',style: TextStyle(fontSize: 30,color: defultColor)),
-            Spacer(),
+            const Text('Category',style: const TextStyle(fontSize: 30,color: defultColor)),
+            const Spacer(),
             IconButton(onPressed:(){
               AppCubit.get(context).ChangeIndex(1);
-            }, icon:Icon(Icons.apps_sharp,color: defultColor,size: 30,) )
+            }, icon:const Icon(Icons.apps_sharp,color: defultColor,size: 30,) )
           ],
         ),
       ),
@@ -244,7 +255,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
             height:MediaQuery.of(context).size.height/5,
             child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemBuilder:(context ,index ){
                   return Container(
                     color: Colors.white,
@@ -258,7 +269,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                         Container(
                          width: MediaQuery.of(context).size.width/2,
                           color: Colors.black.withOpacity(0.8) ,
-                          child: Text(" ${categroyModel.categoriesData.data[index].name}",style: TextStyle(
+                          child: Text(" ${categroyModel.categoriesData.data[index].name}",style: const TextStyle(
                               color:Colors.white,
                               fontSize: 18,
                               fontFamily: "Font1",
@@ -277,6 +288,8 @@ crossAxisAlignment: CrossAxisAlignment.start,
       ),
     ],
   );
+
+
   Widget buildCategories(CategoriesDataModel categroyModel,BuildContext context,)=> Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -284,13 +297,13 @@ crossAxisAlignment: CrossAxisAlignment.start,
         padding: const EdgeInsets.only(left: 15),
         child: Row(
           children: [
-            Text('Category',
-                style: TextStyle(fontSize: 30,color: defultColor)),
-            Spacer(),
+            const Text('Category',
+                style: const TextStyle(fontSize: 30,color: defultColor)),
+            const Spacer(),
             InkWell(onTap: (){
               AppCubit.get(context).ChangeIndex(1);
               },
-                child: Text('see all  ',style: TextStyle(color: defultColor))),
+                child: const Text('see all  ',style: const TextStyle(color: defultColor))),
 
           ],
         ),
@@ -302,7 +315,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
          // height:MediaQuery.of(context).size.height/5,
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemBuilder:(context ,index ){
                 return InkWell(
                   onTap: (){
