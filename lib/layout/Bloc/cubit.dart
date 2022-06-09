@@ -1,9 +1,8 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_project/models/categroy_model/categroy_model.dart';
+import 'package:shop_project/models/change_favorites_model/change_favorites_model.dart';
 import 'package:shop_project/models/favorites_model/favorites_model.dart';
 import 'package:shop_project/models/home_model/home_model.dart';
 import 'package:shop_project/modules/Setting/setting.dart';
@@ -11,7 +10,7 @@ import 'package:shop_project/modules/cart_screen/cart_screen.dart';
 import 'package:shop_project/modules/cateogries_screen/cateogries_screen.dart';
 import 'package:shop_project/modules/favorites_screen/favorites_screen.dart';
 import 'package:shop_project/modules/prodect_Screen/prodect_Screen.dart';
-import 'package:shop_project/shared/Bloc/states.dart';
+import 'package:shop_project/layout/Bloc/states.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
 import 'package:shop_project/shared/Network/end_point/end_point.dart';
 import 'package:shop_project/shared/Network/remote/dio_helper.dart';
@@ -27,8 +26,6 @@ class AppCubit extends Cubit<AppStates>
     IsDark = !IsDark;
     emit(AppChangeModeStates());
   }
-
-
 
 
   // FancyBottomNavigation
@@ -62,7 +59,7 @@ class AppCubit extends Cubit<AppStates>
   }
 
 
-//Favorite Product
+//Select Favorite Product
   Map<int,bool> FavoriteList={};
   ChangeIconeFavoriteModel changeIconeFavoriteModel;
 
@@ -82,6 +79,9 @@ class AppCubit extends Cubit<AppStates>
       {
         FavoriteList[ProductId] = !FavoriteList[ProductId];
       }
+      else{
+        getFavoritesData();
+      }
 
       emit(SuccessChangeFavoritesSuccessState(changeIconeFavoriteModel));
     }).catchError((error){
@@ -91,6 +91,29 @@ class AppCubit extends Cubit<AppStates>
     });
   }
 
+//Move Favorite Product in Favorite Screen
+  FavoritesModel favoritesModelDataModel;
+  void getFavoritesData(){
+    emit(LoadingGetFavoritesStates());
+    DioHelper.getData(
+      Url: FAVORITES,
+      token: token,
+    ).then((value) {
+      favoritesModelDataModel = FavoritesModel.fromJson(value.data);
+      printFullText(value.data.toString());
+
+
+      emit(SuccessGetFavoritesState());
+
+
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetFavoritesStates(error.toString()));
+
+
+    });
+
+  }
 
 
 //Get Product and Banner Data at Home
@@ -105,7 +128,7 @@ class AppCubit extends Cubit<AppStates>
     homeModel.data.products.forEach((element) {
        FavoriteList.addAll({element.id: element.inFavorites});
      });
-print(FavoriteList.toString());
+          print(FavoriteList.toString());
 
      emit(SuccessHomeDataStates());
 
@@ -146,7 +169,6 @@ print(FavoriteList.toString());
 
   //CarouselSlider
   int indexCarouselSider = 0;
-
   void ChangeindexCarouselSider(int index) {
     indexCarouselSider = index;
     emit(SuccessCategoriesDataStates());

@@ -1,5 +1,6 @@
  import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shop_project/models/change_favorites_model/change_favorites_model.dart';
 import 'package:shop_project/models/favorites_model/favorites_model.dart';
 
 @immutable
@@ -40,6 +41,15 @@ class AppChangeBottomNavBarStates extends AppStates{}
  }
 
 
+
+
+ class LoadingGetFavoritesStates extends AppStates{}
+ class SuccessGetFavoritesState extends AppStates{
+ }
+ class ErrorGetFavoritesStates extends AppStates{
+   final String error;
+   ErrorGetFavoritesStates(this.error);
+ }
 
 
 

@@ -134,3 +134,15 @@ Widget showDialog({context,router, AlertDialog Function(BuildContext context) bu
     // shape: CircleBorder(),
   ),
 );
+
+
+
+
+//Divied Line
+Widget MyDivider({double margin = 0.0}) => Container(
+  color: Colors.grey[300],
+  width: double.infinity,
+  height: 1,
+  padding: EdgeInsets.all(16.0),
+  margin: EdgeInsets.symmetric(horizontal: margin),
+);

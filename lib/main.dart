@@ -5,8 +5,8 @@ import 'package:shop_project/layout/splash_screen/spalsh_screen.dart';
 import 'package:shop_project/modules/Setting/setting.dart';
 import 'package:shop_project/modules/on_boarding_screen/on_boardin_screen.dart';
 import 'package:shop_project/modules/welcome_screen/welcome_screen.dart';
-import 'package:shop_project/shared/Bloc/cubit.dart';
-import 'package:shop_project/shared/Bloc/observer_bloc.dart';
+import 'package:shop_project/layout/Bloc/cubit.dart';
+import 'package:shop_project/layout/Bloc/observer_bloc.dart';
 import 'package:shop_project/shared/Constans/constans.dart';
 import 'package:shop_project/shared/Network/local/cacheHelper.dart';
 import 'package:shop_project/shared/Network/remote/dio_helper.dart';
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: ((context) => AppCubit()..getHomeData()..getCategoriesData())),
+        BlocProvider(create: ((context) => AppCubit()..getHomeData()..getCategoriesData()..getFavoritesData())),
         BlocProvider(create: (BuildContext context )=>ThemeAppCubit()..ChangeAppMode(fromShared: IsDark))
       ],
       child: BlocConsumer<ThemeAppCubit,ThemeAppStates>(

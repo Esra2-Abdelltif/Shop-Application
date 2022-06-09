@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_project/models/categroy_model/categroy_model.dart';
-import 'package:shop_project/shared/Bloc/cubit.dart';
-import 'package:shop_project/shared/Bloc/states.dart';
+import 'package:shop_project/layout/Bloc/cubit.dart';
+import 'package:shop_project/layout/Bloc/states.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
 
 class CateogriesScreen extends StatelessWidget {

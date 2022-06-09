@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_project/models/categroy_model/categroy_model.dart';
 import 'package:shop_project/models/home_model/home_model.dart';
-import 'package:shop_project/shared/Bloc/cubit.dart';
-import 'package:shop_project/shared/Bloc/states.dart';
+import 'package:shop_project/layout/Bloc/cubit.dart';
+import 'package:shop_project/layout/Bloc/states.dart';
 import 'package:shop_project/shared/Styles/colors.dart';
 import 'package:shop_project/shared/Styles/size_config.dart';
 import 'package:shop_project/shared/compoenets/components.dart';
@@ -62,7 +62,7 @@ class ProdectScreen extends StatelessWidget {
                       enableInfiniteScroll: true , //scroll lw7dh
                       reverse: false,//يقلب في تجاه واحد
                       aspectRatio: 16/9,
-                      viewportFraction: 0.9,
+                      viewportFraction: 0.98,
                       autoPlay: true,
                       autoPlayInterval: const Duration(seconds: 3),
                       autoPlayAnimationDuration: const Duration(milliseconds: 800),
@@ -115,14 +115,14 @@ class ProdectScreen extends StatelessWidget {
   Widget buildProductItem(HomeModel modelHome,BuildContext context)=> SingleChildScrollView(
 
         child: Column(
-crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-        //Banner Slider
-        const Padding(
-          padding: EdgeInsets.only(left: 15),
-          child: Text('Product',style: TextStyle(fontSize: 30,color: defultColor)),
-        ),
-        Padding(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //Banner Slider
+              const Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: Text('Product',style: TextStyle(fontSize: 30,color: defultColor)),
+              ),
+              Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
             child: GridView.count(
@@ -168,7 +168,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                         ]
                                 ),
                                 Stack(
-                                  alignment: Alignment.bottomRight,
+                                  alignment: Alignment.bottomLeft,
                                   children: [
                                     Hero(
                                       tag: "${modelHome.data.products[index].id}",
